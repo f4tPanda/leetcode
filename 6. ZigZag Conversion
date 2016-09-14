@@ -1,0 +1,29 @@
+class Solution(object):
+    def convert(self, s, numRows):
+        """
+        :type s: str
+        :type numRows: int
+        :rtype: str
+        """
+        retVal = ""
+        if numRows<=1:
+            return s
+        i = 0
+        offsetSum = (numRows-1)*2
+        while(i<numRows):
+            offset1 = (numRows-1-i)*2
+            offset2 = offsetSum - offset1
+            index = i
+            toggle = 0
+            while index < len(s):
+                retVal += s[index]
+                if toggle == 0 and offset1 != 0:
+                    index += offset1
+                    toggle = 1
+                elif toggle == 1 and offset2 != 0:
+                    index += offset2
+                    toggle = 0
+                elif offset1 == 0 or offset2 == 0:
+                    index += offset1 + offset2
+            i += 1
+        return retVal
