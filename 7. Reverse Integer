@@ -1,0 +1,18 @@
+class Solution(object):
+    def reverse(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        retVal = 0
+        sign = 1 if x>0 else -1
+        #take abs value and then reverse, we will adjust the sign later
+        x *= sign
+        while x != 0:
+            d = x%10
+            retVal = retVal*10 + d
+            x /= 10
+        retVal = retVal*sign
+        if retVal < -2147483648: return 0
+        if retVal > 2147483647: return 0
+        return retVal
