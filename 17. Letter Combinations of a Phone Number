@@ -1,0 +1,35 @@
+class Solution(object):
+    def letterCombinations(self, digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
+        retVal = []
+        dict = {
+                    "1":["*"],
+                    "2":["a", "b", "c"],
+                    "3":["d", "e", "f"],
+                    "4":["g", "h", "i"],
+                    "5":["j", "k", "l"],
+                    "6":["m", "n", "o"],
+                    "7":["p", "q", "r", "s"],
+                    "8":["t", "u", "v"],
+                    "9":["w", "x", "y", "z"],
+                    "0":[" "]
+               }
+        if len(digits) == 0:
+            return retVal
+        retVal = dict[digits[0]]
+        i = 1
+        while i < len(digits):
+            tempList = []
+            j = 0
+            for j in range(len(retVal)):
+                #list2 is the list of corresponding to the current digit represented by i.
+                list2 = dict[digits[i]]
+                k = 0
+                for k in range(len(list2)):
+                    tempList.append(retVal[j]+list2[k])
+            retVal = tempList
+            i += 1
+        return retVal
