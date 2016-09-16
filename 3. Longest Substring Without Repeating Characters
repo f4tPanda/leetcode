@@ -1,0 +1,39 @@
+"""
+We do one pass. T.C. is O(n)
+move from left to right keeping track of start of the unique characters string
+Initialize a hash with value -1. Maintain a hash of <key , index>
+Start iterting from left 
+  if the element occured before the start then it means it is not part of the current string and the hash is storing old value which is set to -1
+  if not present in hash then increment the length by 1 and store the index in hash
+  else if present then curr_length will be current index, i - previous_index, that is the previous pccurence of the element
+    update the start index
+  if curr_lenght > max_length
+    update max_length
+
+"""
+
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        charmap = {x: -1 for x in range(0,255)}
+        maxlen = 0
+        currlen = 0
+        start = 0
+        n = len(s)
+        for i in range(0,n):
+            prev_index = charmap[ord(s[i])]
+            if(start > prev_index):
+                prev_index = -1
+                charmap[ord(s[i])] = -1
+            if prev_index == -1:
+                currlen += 1
+            else:
+                currlen = i-prev_index
+                start  = prev_index+1
+            charmap[ord(s[i])] = i
+            if currlen > maxlen:
+                maxlen = currlen
+        return maxlen
