@@ -1,0 +1,25 @@
+class Solution(object):
+    def expandAroundCenter(self,s,left,right):
+        l = left
+        r = right
+        while l >= 0 and r < len(s) and s[l] == s[r]:
+            l -= 1
+            r += 1
+        return s[l+1:r]
+     
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        n = len(s)
+        maxStr = ""
+        
+        for i in range (0,n):
+            currStr = self.expandAroundCenter(s,i,i)
+            if len(currStr) > len(maxStr):
+                maxStr = currStr
+            currStr = self.expandAroundCenter(s,i,i+1)
+            if len(currStr) > len(maxStr):
+                maxStr = currStr
+        return maxStr
